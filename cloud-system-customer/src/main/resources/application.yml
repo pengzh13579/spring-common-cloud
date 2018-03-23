@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: cloud-system-customer
+  thymeleaf:
+    prefix: classpath:/pages/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+server:
+  port: 8050
+eureka:
+  instance:
+    prefer-ip-address: true
+    # 此处，preferIpAddress不设置或者设为false，不能设为true，否则影响turbine的测试。
+    # turbine存在的问题：eureka.instance.hostname一致时只能检测到一个节点，会造成turbine数据不完整
+    hostname: feign
+  client:
+    service-url:
+      defaultZone: http://root:root@localhost:8001/eureka/
+ribbon:
+  eureka:
+    # 默认为true。如果设置为false，Ribbon将不会从Eureka中获得服务列表，而是使用静态配置的服务列表。
+    # 静态服务列表可使用：<client>.ribbon.listOfServers来指定。
+    enabled: true

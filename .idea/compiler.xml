@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cloud-common-config_main" target="1.8" />
+      <module name="cloud-common-config_test" target="1.8" />
+      <module name="cloud-discovery-eureka_main" target="1.8" />
+      <module name="cloud-discovery-eureka_test" target="1.8" />
+      <module name="cloud-system-customer_main" target="1.8" />
+      <module name="cloud-system-customer_test" target="1.8" />
+      <module name="cloud-system-provider_main" target="1.8" />
+      <module name="cloud-system-provider_test" target="1.8" />
+      <module name="spring-common-cloud_main" target="1.8" />
+      <module name="spring-common-cloud_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

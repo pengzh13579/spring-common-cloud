@@ -1,0 +1,54 @@
+server:
+  port: 8001
+# 安全认证的配置
+security:
+  basic:
+    enabled: true
+  user:
+    name: root  # 用户名
+    password: root   # 用户密码
+---
+spring:
+  application:
+    name: cloud-discovery-eureka
+  profiles: peer1
+server:
+  port: 10001
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://root:root@peer2:10002/eureka/,http://root:root@peer3:10003/eureka/
+---
+spring:
+  application:
+    name: cloud-discovery-eureka
+  profiles: peer2
+server:
+  port: 10002
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://root:root@peer1:10001/eureka/,http://root:root@peer3:10003/eureka/
+---
+spring:
+  application:
+    name: cloud-discovery-eureka
+  profiles: peer3
+server:
+  port: 10003
+eureka:
+  instance:
+    hostname: peer3
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://root:root@peer1:10001/eureka/,http://root:root@peer2:10002/eureka/

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "cn.pzh.system.provider.dao.first.mapper.UserMapper">
+
+    <resultMap id = "BaseResultMap" type = "cn.pzh.system.provider.dao.first.model.SystemUserEntity">
+        <result column = "USER_NAME" jdbcType = "VARCHAR" property = "userName" />
+        <result column = "REAL_NAME" jdbcType = "VARCHAR" property = "realName" />
+        <result column = "PASSWORD" jdbcType = "VARCHAR" property = "password" />
+        <result column = "SALT" jdbcType = "VARCHAR" property = "salt" />
+        <result column = "CONTACT" jdbcType = "VARCHAR" property = "email" />
+    </resultMap>
+
+    <!-- 开启基于redis的二级缓存 -->
+    <cache type = "cn.pzh.system.common.config.conf.redis.RedisCache" />
+
+    <!--  -->
+    <select id = "getAll" resultType = "String">
+        SELECT
+        user_name
+        FROM t_b_user
+    </select>
+
+    <!--  -->
+    <select id = "getUserNameByName" parameterType = "String" resultMap = "BaseResultMap" useCache = "false">
+        SELECT
+            A.USER_NAME,
+            A.REAL_NAME,
+            A.PASSWORD,
+            A.SALT,
+            B.CONTACT
+        FROM t_b_user A
+        INNER JOIN t_b_contact B
+        ON A.I_ID = B.USER_ID
+        AND B.TYPE_DETAIL_ID = 1
+        WHERE A.USER_NAME = #{userName,jdbcType=VARCHAR}
+        OR B.CONTACT = #{userName,jdbcType=VARCHAR}
+    </select>
+
+    <!--  -->
+    <insert id = "saveUser" keyProperty = "iId"
+            parameterType = "cn.pzh.system.provider.dao.first.model.SystemUserEntity" useGeneratedKeys = "true">
+        insert into t_b_user (
+        USER_NAME,
+        PASSWORD,
+        SALT,
+        DIS_FLAG,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE)
+        values (
+        #{userName,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{salt,jdbcType=VARCHAR},
+        #{disFlag,jdbcType=NUMERIC},
+        #{createUser,jdbcType=VARCHAR},
+        #{createDate,jdbcType=TIMESTAMP},
+        #{updateUser,jdbcType=VARCHAR},
+        #{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <!--  -->
+    <insert id = "saveContact" parameterType = "cn.pzh.system.provider.dao.first.model.SystemContactEntity">
+        insert into t_b_contact (
+        USER_ID,
+        TYPE_DETAIL_ID,
+        CONTACT,
+        DIS_FLAG,
+        CREATE_USER,
+        CREATE_DATE,
+        UPDATE_USER,
+        UPDATE_DATE)
+        values (
+        #{userId,jdbcType=NUMERIC},
+        #{typeDetailId,jdbcType=NUMERIC},
+        #{contact,jdbcType=VARCHAR},
+        #{disFlag,jdbcType=NUMERIC},
+        #{createUser,jdbcType=VARCHAR},
+        #{createDate,jdbcType=TIMESTAMP},
+        #{updateUser,jdbcType=VARCHAR},
+        #{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-common-config.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-common-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1063841518/cloud-common-config_main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1063841518/cloud-common-config_main.iml" group="cloud-common-config" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1063841518/cloud-common-config_test.iml" filepath="$PROJECT_DIR$/.idea/modules/-1063841518/cloud-common-config_test.iml" group="cloud-common-config" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-discovery-eureka.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-discovery-eureka.iml" group="cloud-discovery-eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/316124104/cloud-discovery-eureka_main.iml" filepath="$PROJECT_DIR$/.idea/modules/316124104/cloud-discovery-eureka_main.iml" group="cloud-discovery-eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/316124104/cloud-discovery-eureka_test.iml" filepath="$PROJECT_DIR$/.idea/modules/316124104/cloud-discovery-eureka_test.iml" group="cloud-discovery-eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-system-customer.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-system-customer.iml" group="cloud-system-customer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1243439638/cloud-system-customer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/-1243439638/cloud-system-customer_main.iml" group="cloud-system-customer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1243439638/cloud-system-customer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/-1243439638/cloud-system-customer_test.iml" group="cloud-system-customer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-system-provider.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-system-provider.iml" group="cloud-system-provider" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-system-provider/cloud-system-provider_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-system-provider/cloud-system-provider_main.iml" group="cloud-system-provider" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloud-system-provider/cloud-system-provider_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cloud-system-provider/cloud-system-provider_test.iml" group="cloud-system-provider" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-common-cloud.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-common-cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/989498965/spring-common-cloud_main.iml" filepath="$PROJECT_DIR$/.idea/modules/989498965/spring-common-cloud_main.iml" group="spring-common-cloud" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/989498965/spring-common-cloud_test.iml" filepath="$PROJECT_DIR$/.idea/modules/989498965/spring-common-cloud_test.iml" group="spring-common-cloud" />
+    </modules>
+  </component>
+</project>

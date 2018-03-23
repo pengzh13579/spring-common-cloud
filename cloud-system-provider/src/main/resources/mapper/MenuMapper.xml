@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "cn.pzh.system.provider.dao.first.mapper.MenuMapper">
+
+    <resultMap id = "MenuNodeMap" type = "cn.pzh.system.provider.dao.first.model.SystemMenuEntity">
+        <result column = "MENU_CODE" jdbcType = "VARCHAR" property = "menuCode" />
+        <result column = "MENU_NAME" jdbcType = "VARCHAR" property = "menuName" />
+        <result column = "MENU_URL" jdbcType = "VARCHAR" property = "menuUrl" />
+    </resultMap>
+
+    <!-- 开启基于redis的二级缓存 -->
+    <cache type = "cn.pzh.system.common.config.conf.redis.RedisCache" />
+
+    <!--  -->
+    <select id = "getMenu" parameterType = "map" resultMap = "MenuNodeMap">
+        SELECT
+        A.MENU_CODE,
+        A.MENU_NAME,
+        A.MENU_URL
+        FROM t_b_menu A
+        INNER JOIN t_b_role_menu_mapping B
+        ON A.I_ID = B.MENU_ID
+        INNER JOIN t_b_role C
+        ON B.ROLE_ID = C.I_ID
+        AND C.DIS_FLAG = 0
+        INNER JOIN t_b_role_user_mapping D
+        ON C.I_ID = D.ROLE_ID
+        INNER JOIN t_b_user E
+        ON E.I_ID = D.USER_ID
+        WHERE A.PARENT_MENU_CODE = #{parentMenuCode,jdbcType=VARCHAR}
+        AND A.DIS_FLAG = 0
+        AND E.USER_NAME = #{userName,jdbcType=VARCHAR}
+        ORDER BY MENU_CODE ASC
+    </select>
+</mapper>

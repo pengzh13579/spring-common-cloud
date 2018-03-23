@@ -1,0 +1,27 @@
+server:
+  port: 8060
+spring:
+  application:
+    name: cloud-system-provider    # 项目名称尽量用小写
+  profiles:
+    active: local_development #指定当前的活动配置文件，主要用于多环境多配置文件的应用中
+  mvc:
+    favicon:
+      enabled: false
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://root:root@localhost:8001/eureka/
+
+logging:
+  config: classpath:logback-spring.xml
+
+log:
+  path:
+    all: log/app.log
+    error: log/error.log
+  level:
+    app: DEBUG
+    root: INFO

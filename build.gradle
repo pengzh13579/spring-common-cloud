@@ -1,0 +1,131 @@
+// buildscript中的声明是gradle脚本自身需要使用的资源。可以声明的资源包括依赖项、第三方插件、maven仓库地址等
+buildscript {
+
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+        jdkVersion = 1.8
+        app_basename = 'webApp'
+        app_version = '1.0.0-SNAPSHOT'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+// allprojects：allprojects是父Project的一个属性，该属性会返回该Project对象以及其所有子项目。
+allprojects {
+    version = "1.6.2"
+}
+
+// subprojects：subprojects和allprojects一样，也是父Project的一个属性，该属性会返回所有子项目。
+subprojects {
+    apply plugin: "org.springframework.boot"
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    def defaultEncoding = 'UTF-8'
+    tasks.withType(AbstractCompile).each { it.options.encoding = defaultEncoding }
+
+    javadoc {
+        options.encoding = defaultEncoding
+        options.addBooleanOption('Xdoclint:none', true)
+    }
+
+    springBoot {
+        executable = true
+        buildInfo()
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR6"
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
+    }
+
+    // compile:用来编译项目源代码的依赖.
+    // runtime:在运行时被生成的类使用的依赖. 默认的, 也包含了编译时的依赖.
+    // testCompile:编译测试代码的依赖. 默认的, 包含生成的类运行所需的依赖和编译源代码的依赖.
+    // testRuntime:运行测试所需要的依赖. 默认的, 包含上面三个依赖.
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-devtools'
+        compile 'org.springframework.boot:spring-boot-starter-aop'
+        compile 'org.springframework.boot:spring-boot-starter-cache'
+        compile 'org.springframework.boot:spring-boot-starter-actuator'
+        compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+        compile 'org.springframework.boot:spring-boot-starter-actuator'
+        compile 'org.springframework.cloud:spring-cloud-starter-feign'
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.cloud:spring-cloud-starter-eureka-server'
+
+        // lombok
+        compile 'org.projectlombok:lombok'
+
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+}
+
+// 通过project(‘:cloud-discovery-eureka’)来设置对应的子项目的配置。
+project(':cloud-discovery-eureka') {
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-security'
+        compile 'org.springframework.boot:spring-boot-starter-tomcat'
+    }
+}
+
+project(':cloud-system-customer') {
+    dependencies {
+        compile project(':cloud-common-config')
+        compile project(':cloud-system-provider')
+        compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+        compile group: 'com.alibaba', name: 'fastjson', version: '1.2.38'
+    }
+}
+
+project(':cloud-system-provider') {
+    dependencies {
+        compile project(':cloud-common-config')
+
+        compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.0'
+        compile group: 'com.github.pagehelper', name: 'pagehelper', version: '4.1.6'
+        //DB
+        compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
+        compile group: 'org.postgresql', name: 'postgresql', version: '42.1.1'
+        // commons lang
+        compile 'org.apache.commons:commons-lang3:3.5'
+    }
+}
+
+project(':cloud-common-config') {
+    dependencies {
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: '1.4.3.RELEASE'
+        compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+    }
+}
+
+//引入插件
+//apply plugin: 'war'
+//apply plugin: 'jetty'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar.baseName = app_basename
+
+bootRun {
+    addResources = true
+}

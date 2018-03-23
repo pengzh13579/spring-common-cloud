@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":cloud-system-customer" external.linked.project.path="$MODULE_DIR$/../../cloud-system-customer" external.root.project.path="$MODULE_DIR$/../../cloud-discovery-eureka" external.system.id="GRADLE" external.system.module.group="spring-common-cloud" external.system.module.version="1.6.2" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../cloud-system-customer">
+      <excludeFolder url="file://$MODULE_DIR$/../../cloud-system-customer/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../cloud-system-customer/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../cloud-system-customer/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

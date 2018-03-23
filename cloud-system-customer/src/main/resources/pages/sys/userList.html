@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9,IE=10" />
+    <title>用户管理</title>
+</head>
+<div id="user_tool" style="padding: 2px; height: auto">
+    <a class="easyui-linkbutton" iconCls="icon-add" plain="true"
+       onclick="addUser()">添加用户</a>
+    <a class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+       onclick="lockUser()">锁定/解锁用户</a>
+    <a class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+       onclick="updateUser()">编辑用户</a>
+    <a class="easyui-linkbutton" iconCls="icon-lock" plain="true"
+       onclick="restUserPwd()">重置密码</a>
+    <a class="easyui-linkbutton" iconCls="icon-more" plain="true"
+       onclick="excelFileUpload()">批量添加</a>
+    <a class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+       onclick="excelFileDownload()">excel模板下载</a>
+    <div style="float: right;margin-right: 30px">
+        <input id="search" class="easyui-searchbox" data-options="prompt:'请输入用户名'"
+               searcher="selectUser" style="width:150px;" />
+        <button class="easyui-linkbutton" onclick="userReset()">重置</button>
+    </div>
+</div>
+<table id="userDg" class="easyui-datagrid" style="width: 100px">
+    <thead>
+    <tr>
+        <th data-options="field:'id',sortable:true,width:'120px',hidden:true"></th>
+        <th data-options="field:'userCd',width:'150px'">登录名</th>
+        <th data-options="field:'userName',width:'150px'">用户姓名</th>
+        <th data-options="field:'age',width:'150px'">年龄</th>
+        <th data-options="field:'delFlagDesc',width:'150px'">状态</th>
+        <th data-options="field:'tel',width:'150px'">电话</th>
+        <th data-options="field:'address',width:'150px'">住址</th>
+        <th data-options="field:'eml',width:'150px'">email</th>
+        <th data-options="field:'job',width:'150px',hidden:true">职位</th>
+        <th data-options="field:'jobDesc',width:'150px'">职位</th>
+        <th data-options="field:'roleId',width:'150px',hidden:true">角色ID</th>
+        <th data-options="field:'roleName',width:'150px'">角色</th>
+        <th data-options="field:'updateUser',width:'150px'">更新人</th>
+        <th data-options="field:'updateDate',formatter:function(value,row){
+						var date=new Date(row.updateDate);
+						return date.Format('yyyy-MM-dd');},width:'200px'">更新日
+        </th>
+    </tr>
+    </thead>
+</table>
+<!-- 页面弹出框 -->
+<div id="user_dialog" class="easyui-window"
+     data-options="modal:true,closed:true,iconCls:'icon-save',maximizable:false"
+     style="width:500px;height:400px;padding:10px 20px;">
+    <form id="userForm" method="post">
+        <table style="margin-left: 30px">
+            <tr hidden="true">
+                <td align="right">ID</td>
+                <td><input id="id" name="id" style="width:200px;" /></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">用户名</td>
+                <td><input id="userCd" name="userCd" type="text"></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">真实姓名</td>
+                <td><input id="userName" name="userName" type="text"></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">年龄</td>
+                <td><input id="age" name="age" type="text"></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">电话</td>
+                <td><input id="user_tel" name="tel" type="text"></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">住址</td>
+                <td>
+                    <textarea id="user_address" name="address" style="width:200px;height:100px"
+                              maxlength="200"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">email</td>
+                <td><input id="eml" name="eml" type="text"></td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">职位</td>
+                <td>
+                    <input id="job" name="job" style="width:200px" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right" style="width:100px">角色</td>
+                <td>
+                    <input class="easyui-combobox" id="role_combo" name="role_combo" style="width:200px" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td colspan="3"><a id="btn-saveUser" href="javascript:void(0);"
+                                   onclick="saveUser()" class="easyui-linkbutton">保存</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="reset" class="easyui-linkbutton">重置</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="user_upload_dialog" class="easyui-window"
+     data-options="modal:true,closed:true,iconCls:'icon-save',maximizable:false"
+     style="width:600px;height:400px;padding:10px 20px;">
+    <form id="userUploadForm">
+        <table>
+            <p>
+                文件：<input type="file" name="file" id="file" />
+            </p>
+            <p>
+                <input type="button" value="上传" onclick="uploadFile()" />
+            </p>
+        </table>
+    </form>
+</div>
+<script th:src="@{/system/js/system/user.js}" type="text/javascript" language="javascript"></script>
+</html>

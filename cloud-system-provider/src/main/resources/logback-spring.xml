@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<configuration>
+
+    <!-- 文件输出格式 -->
+    <property name = "PATTERN"
+            value = "%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |- %-5level -${HOSTNAME} [%thread] %logger{5}  -| %msg%n" />
+    <!-- test文件路径 -->
+    <property name = "FILE_PATH" value = "/logs" />
+
+    <springProperty name = "env" scope = "context" source = "spring.profiles" />
+    <springProperty name = "raw_log_path" scope = "context" source = "log.path.all" />
+    <springProperty name = "raw_error_log_path" scope = "context" source = "log.path.error" />
+    <springProperty name = "log_level" scope = "context" source = "log.level.app" />
+    <springProperty name = "root_log_level" scope = "context" source = "log.level.root" />
+
+    <appender class = "ch.qos.logback.core.ConsoleAppender" name = "STDOUT">
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender class = "ch.qos.logback.core.rolling.RollingFileAppender"
+            name = "FILE_APP">
+        <file>${raw_log_path}</file>
+        <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${raw_log_path}.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <layout class = "ch.qos.logback.classic.PatternLayout">
+            <pattern>${PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender class = "ch.qos.logback.core.rolling.RollingFileAppender" name = "FILE_ERROR">
+        <filter class = "ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${raw_error_log_path}</file>
+        <rollingPolicy class = "ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${raw_error_log_path}.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger additivity = "false" name = "cn.pzh.system">
+        <level value = "${log_level}" />
+        <appender-ref ref = "STDOUT" />
+        <appender-ref ref = "FILE_APP" />
+        <appender-ref ref = "FILE_ERROR" />
+    </logger>
+
+    <root level = "${root_log_level}">
+        <appender-ref ref = "STDOUT" />
+        <appender-ref ref = "FILE_APP" />
+        <appender-ref ref = "FILE_ERROR" />
+    </root>
+
+</configuration>
+

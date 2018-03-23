@@ -1,0 +1,39 @@
+spring.profiles: local_development
+spring.profiles.include: common
+
+app:
+  first:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/db?characterEncoding=UTF-8
+      username: root
+      password: root
+      max-active: 5
+      max-idle: 5
+      min-idle: 5
+      initial-size: 5
+      jmx-enabled: true
+      test-on-borrow: true
+      validation-query: select 1
+      cachePrepStmts: true
+  second:
+    datasource:
+      driverClassName: org.postgresql.Driver
+      url: jdbc:postgresql://172.20.68.242:5432/happinet
+      username: postgres
+      password: happinet
+      max-active: 5
+      max-idle: 5
+      min-idle: 5
+      initial-size: 5
+      jmx-enabled: true
+      test-on-borrow: true
+      validation-query: select 1
+
+log:
+  path:
+    all: log/app.log
+    error: log/error.log
+  level:
+    app: DEBUG
+    root: INFO
